@@ -8,6 +8,7 @@ fun onNumberClick(number: String, display: String, updateDisplay: (String) -> Un
     }
 }
 
+
 fun onOperatorClick(
     operator: String,
     display: String,
@@ -28,9 +29,11 @@ fun onOperatorClick(
             updateSecondOperand("")
         }
         else -> {
+            if (firstOperand.isEmpty()) {
+                updateFirstOperand(display)
+            }
             updateCurrentOperation(operator[0])
-            updateFirstOperand(display)
-            updateDisplay("0")
+            updateDisplay(firstOperand)
         }
     }
 }
