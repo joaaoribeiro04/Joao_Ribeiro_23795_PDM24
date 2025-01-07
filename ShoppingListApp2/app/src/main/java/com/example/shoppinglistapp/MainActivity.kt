@@ -10,6 +10,7 @@ import com.example.shoppinglistapp.ui.home.ListTypesView
 import com.example.shoppinglistapp.ui.login.LoginView
 import com.example.shoppinglistapp.ui.theme.ShoppingListAppTheme
 import com.example.shoppinglistapp.ui.home.AddListTypeView
+import com.example.shoppinglistapp.ui.home.ShareListView
 
 class MainActivity : ComponentActivity() {
 
@@ -30,6 +31,12 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("add_list_type") {
                         AddListTypeView(navController = navController)
+                    }
+                    composable("share_list/{listId}") { backStackEntry ->
+                        val listId = backStackEntry.arguments?.getString("listId")
+                        if (listId != null) {
+                            ShareListView(navController = navController, listId = listId)
+                        }
                     }
                 }
             }

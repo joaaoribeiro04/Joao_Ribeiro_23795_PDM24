@@ -2,6 +2,7 @@ package com.example.shoppinglistapp.repositories
 
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.example.shoppinglistapp.models.ListItem
@@ -9,6 +10,19 @@ import com.example.shoppinglistapp.models.ListItem
 object ListItemRepository {
 
     private val db = Firebase.firestore
+
+    fun shareList(listId: String, userId: String, onSuccess: () -> Unit) {
+        db.collection("listTypes")
+            .document(listId)
+            .update("owners", FieldValue.arrayUnion(userId))
+            .addOnSuccessListener {
+                Log.d("ListItemRepository", "List $listId shared with user $userId")
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                Log.w("ListItemRepository", "Error sharing list $listId with user $userId", e)
+            }
+    }
 
     fun add(listItem: ListItem, onAddListSuccess: () -> Unit) {
         val currentUser = Firebase.auth.currentUser
@@ -33,9 +47,14 @@ object ListItemRepository {
             db.collection("listTypes")
                 .whereArrayContains("owners", it)
                 .addSnapshotListener { value, error ->
-                    val listItems = value?.documents?.mapNotNull {
-                        val itemList = it.toObject(ListItem::class.java)
-                        itemList?.docId = it.id
+                    if (error != null) {
+                        Log.w("ListItemRepository", "Error getting lists", error)
+                        return@addSnapshotListener
+                    }
+
+                    val listItems = value?.documents?.mapNotNull { document ->
+                        val itemList = document.toObject(ListItem::class.java)
+                        itemList?.docId = document.id
                         itemList
                     }
                     listItems?.let { onSuccess(it) }

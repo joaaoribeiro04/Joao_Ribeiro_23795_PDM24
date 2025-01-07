@@ -29,7 +29,12 @@ fun ListTypesView(navController: NavController) {
             LazyColumn {
                 items(state.listItems.size) { index ->
                     val item = state.listItems[index]
-                    ListTypeRowView(listItem = item)
+                    ListTypeRowView(
+                        listItem = item,
+                        onShareClick = {
+                            navController.navigate("share_list/${item.docId}")
+                        }
+                    )
                 }
             }
         }
@@ -45,10 +50,14 @@ fun ListTypesView(navController: NavController) {
 }
 
 @Composable
-fun ListTypeRowView(listItem: ListItem) {
+fun ListTypeRowView(listItem: ListItem, onShareClick: () -> Unit) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(text = listItem.name ?: "Unnamed", style = MaterialTheme.typography.bodyLarge)
         Text(text = listItem.description ?: "No description")
+
+        Button(onClick = onShareClick) {
+            Text("Share List")
+        }
     }
 }
 
