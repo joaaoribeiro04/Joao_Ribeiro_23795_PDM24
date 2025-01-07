@@ -10,7 +10,6 @@ object ListItemRepository {
 
     private val db = Firebase.firestore
 
-    // Função para adicionar um ListItem
     fun add(listItem: ListItem, onAddListSuccess: () -> Unit) {
         val currentUser = Firebase.auth.currentUser
         currentUser?.uid?.let {
@@ -28,7 +27,6 @@ object ListItemRepository {
             }
     }
 
-    // Função para pegar todos os ListItems de um usuário
     fun getAll(onSuccess: (List<ListItem>) -> Unit) {
         val currentUser = Firebase.auth.currentUser
         currentUser?.uid?.let {

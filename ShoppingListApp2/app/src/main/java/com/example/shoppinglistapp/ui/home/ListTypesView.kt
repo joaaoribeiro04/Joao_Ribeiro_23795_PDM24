@@ -10,18 +10,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import androidx.lifecycle.viewmodel.compose.viewModel // Importação do viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.shoppinglistapp.models.ListItem
 import com.example.shoppinglistapp.ui.theme.ShoppingListAppTheme
-import com.example.shoppinglistapp.viewmodel.ListTypesViewModel // Importação do ListTypesViewModel
+import com.example.shoppinglistapp.viewmodel.ListTypesViewModel
 
 @Composable
 fun ListTypesView(navController: NavController) {
-    // Usando ViewModel adequado
-    val viewModel: ListTypesViewModel = viewModel() // Correção aqui, usando viewModel para obter o ViewModel
-    val state by viewModel.state.collectAsState() // Observe o estado do ViewModel
+    val viewModel: ListTypesViewModel = viewModel()
+    val state by viewModel.state.collectAsState()
 
-    // Carregando a lista ao iniciar
     LaunchedEffect(Unit) {
         viewModel.loadListTypes()
     }
@@ -49,7 +47,7 @@ fun ListTypesView(navController: NavController) {
 @Composable
 fun ListTypeRowView(listItem: ListItem) {
     Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = listItem.name ?: "Unnamed", style = MaterialTheme.typography.bodyLarge) // Corrigido para usar bodyLarge
+        Text(text = listItem.name ?: "Unnamed", style = MaterialTheme.typography.bodyLarge)
         Text(text = listItem.description ?: "No description")
     }
 }
@@ -58,7 +56,7 @@ fun ListTypeRowView(listItem: ListItem) {
 @Composable
 fun ListTypesViewPreview() {
     ShoppingListAppTheme {
-        val navController = rememberNavController() // Correção aqui para usar o NavController corretamente no Preview
+        val navController = rememberNavController()
         ListTypesView(navController = navController)
     }
 }

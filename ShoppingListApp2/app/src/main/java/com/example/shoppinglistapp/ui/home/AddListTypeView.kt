@@ -10,10 +10,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.shoppinglistapp.viewmodel.AddListTypeViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun AddListTypeView(navController: NavController) {
-    val viewModel = AddListTypeViewModel()
+    val viewModel: AddListTypeViewModel = viewModel()
+
+    val state = viewModel.state.value
 
     Column(
         modifier = Modifier
@@ -22,14 +25,14 @@ fun AddListTypeView(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextField(
-            value = viewModel.state.value.name,
+            value = state.name,
             onValueChange = { viewModel.onNameChange(it) },
             placeholder = { Text("List Name") }
         )
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = viewModel.state.value.description,
+            value = state.description,
             onValueChange = { viewModel.onDescriptionChange(it) },
             placeholder = { Text("List Description") }
         )
@@ -37,7 +40,7 @@ fun AddListTypeView(navController: NavController) {
 
         Button(onClick = {
             viewModel.addList()
-            navController.popBackStack() // Volta à tela anterior
+            navController.popBackStack()
         }) {
             Text("Add")
         }
@@ -47,7 +50,6 @@ fun AddListTypeView(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun AddListTypeViewPreview() {
-    // Corrigido: Usar rememberNavController para fornecer um NavController válido
     val navController = rememberNavController()
     MaterialTheme {
         AddListTypeView(navController = navController)

@@ -6,7 +6,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// Definindo cores
 private val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFBB86FC),
     secondary = Color(0xFF03DAC6),
@@ -21,7 +20,7 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun ShoppingListAppTheme(
-    darkTheme: Boolean = false, // Você pode alterar isso para permitir alternar entre temas claro e escuro
+    darkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme

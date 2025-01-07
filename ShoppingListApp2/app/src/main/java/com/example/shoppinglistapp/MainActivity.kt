@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.shoppinglistapp.ui.home.ListTypesView
 import com.example.shoppinglistapp.ui.login.LoginView
-import com.example.shoppinglistapp.ui.theme.ShoppingListAppTheme // Agora o tema está correto
+import com.example.shoppinglistapp.ui.theme.ShoppingListAppTheme
 import com.example.shoppinglistapp.ui.home.AddListTypeView
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
 
-            ShoppingListAppTheme { // Agora você está usando o tema corretamente
+            ShoppingListAppTheme {
                 NavHost(navController = navController, startDestination = "login") {
                     composable("login") {
                         LoginView {
