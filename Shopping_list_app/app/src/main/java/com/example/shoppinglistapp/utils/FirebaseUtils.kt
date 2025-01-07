@@ -12,9 +12,9 @@ object FirebaseUtils {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    onComplete(true, "Registro bem-sucedido!")
+                    onComplete(true, "Registo bem-sucedido!")
                 } else {
-                    onComplete(false, task.exception?.message ?: "Erro ao registrar usuário")
+                    onComplete(false, task.exception?.message ?: "Erro ao registar utilizador")
                 }
             }
     }

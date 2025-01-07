@@ -6,7 +6,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import com.example.nytimesnewsapp.model.NYTResponse
 
-
 interface NYTApiService {
     @GET("topstories/v2/{section}.json")
     suspend fun getTopStories(

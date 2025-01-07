@@ -49,7 +49,7 @@ fun ShoppingListScreen(context: Context) {
         Button(onClick = {
             val item = ShoppingItem(name = newItem.value, quantity = 1)
             shoppingListRepository.saveShoppingList(userId, listOf(item))
-            shoppingItems.value = shoppingItems.value + item // Atualiza a lista localmente
+            shoppingItems.value = shoppingItems.value + item
         }) {
             Text("Adicionar Item")
         }
